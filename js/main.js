@@ -76,4 +76,3 @@ function getRandomArrayString(elements) {
   return mixElements(elements).slice(0, getRandomNumber(1, elements.length - 1)).join(', ');
 }
 
-console.log(ads);
