@@ -1,5 +1,2 @@
-import {ads} from './data.js';
+import './data.js';
 import './util.js';
-
-ads[1]();
-
