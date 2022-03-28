@@ -56,7 +56,7 @@ const createOffer = ({offer, author}) => {
 
   if (offer.features) {
     element.querySelectorAll('.popup__feature').forEach((featureItems) => {
-      const isNecessary = offer.features.some(
+      const isNecessary = Array.from(offer.features.split(', ')).some(
         (feature) => featureItems.classList.contains(`popup__feature--${feature}`)
       );
       if (!isNecessary) {
@@ -75,7 +75,7 @@ const createOffer = ({offer, author}) => {
 
   if(offer.photos) {
     element.querySelector('.popup__photos').innerHTML = '';
-    offer.photos.forEach( (photo) => {
+    Array.from(offer.photos.split(', ')).forEach( (photo) => {
       const item = PHOTO_TEMPLATE.cloneNode(true);
       item.src = photo;
       element.querySelector('.popup__photos').append(item);
@@ -92,4 +92,7 @@ const createOffer = ({offer, author}) => {
   return element;
 };
 
+
 export {createOffer};
+
+
