@@ -1,10 +1,12 @@
-//import {ads} from './data.js';
-
-const offerCardTemplate = document.querySelector('#card').content;
-const TEMPLATE = offerCardTemplate.querySelector('.popup');
-const PHOTO_TEMPLATE = offerCardTemplate.querySelector('.popup__photo');
-const hideAdd = (element) => {element.classList.add('hidden');};
-const addValue = (element, value) => {element.innerHTML = value;};
+const OFFERCARDTEMPLATE = document.querySelector('#card').content;
+const TEMPLATE = OFFERCARDTEMPLATE.querySelector('.popup');
+const PHOTO_TEMPLATE = OFFERCARDTEMPLATE.querySelector('.popup__photo');
+const hideAdd = (element) => {
+  element.classList.add('hidden');
+};
+const addValue = (element, value) => {
+  element.innerHTML = value;
+};
 
 const TYPE = {
   flat: 'Квартира',
@@ -53,12 +55,12 @@ const createOffer = ({offer, author}) => {
   }
 
   if (offer.features) {
-    element.querySelectorAll('.popup__feature').forEach((featureItem) => {
+    element.querySelectorAll('.popup__feature').forEach((featureItems) => {
       const isNecessary = offer.features.some(
-        (feature) => featureItem.classList.contains(`popup__feature--${feature}`)
+        (feature) => featureItems.classList.contains(`popup__feature--${feature}`)
       );
       if (!isNecessary) {
-        featureItem.remove();
+        featureItems.remove();
       }
     });
   } else {
