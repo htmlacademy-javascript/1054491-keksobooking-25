@@ -13,6 +13,7 @@ const LNG_END = 139.80000;
 const PRICE_MAX = 10000;
 const ads = [];
 
+
 for (let i = 1; i <= ADS_COUNT; i++ ) {
   const {lat,lng} = {
     lat: getRandomCoordinat(LAT_START, LAT_END, 5),
