@@ -2,6 +2,7 @@ import {ads} from './data.js';
 import {createOffer} from './offer.js';
 import './util.js';
 import {getDisableForm, getActiveForm} from './form.js';
+import './validation.js';
 
 getDisableForm ();
 getActiveForm ();
