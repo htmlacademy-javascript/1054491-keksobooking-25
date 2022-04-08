@@ -3,6 +3,9 @@ const price = document.querySelector('#price');
 const rooms = document.querySelector('#room_number');
 const guests = document.querySelector('#capacity');
 const houseType = document.querySelector('#type');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+
 
 const typePrice = {
   flat: 1000,
@@ -25,6 +28,23 @@ const validateRoomsAndGuests = () => Number(guests.value) <= Number(rooms.value)
 pristine.addValidator(price, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guests, validateRoomsAndGuests, 'Количество гостей не должно превышать количество комнат');
 pristine.addValidator(rooms, validateRoomsAndGuests, 'Количество гостей не должно превышать количество комнат');
+
+houseType.addEventListener('change', () => {
+  price.placeholder = typePrice[houseType.value];
+  price.min = typePrice[houseType.value];
+});
+
+const getDependenceTimeOut = (timeOfEntry, checkOutTime) => {
+  checkOutTime.value = timeOfEntry.value;
+};
+
+timeIn.addEventListener('change', () => {
+  getDependenceTimeOut(timeIn,timeOut);
+});
+
+timeOut.addEventListener('change', () => {
+  getDependenceTimeOut(timeOut, timeIn);
+});
 
 form.addEventListener('submit', (evt) => {
   if(pristine.validate()) {
