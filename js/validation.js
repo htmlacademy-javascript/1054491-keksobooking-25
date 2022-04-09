@@ -5,6 +5,8 @@ const guests = document.querySelector('#capacity');
 const houseType = document.querySelector('#type');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
+const sliderPrice = document.querySelector('.ad-form__slider');
+const MAX_PRICE = 100000;
 
 
 const typePrice = {
@@ -51,5 +53,24 @@ form.addEventListener('submit', (evt) => {
     return true;
   }
   evt.preventDefault();
+});
+
+noUiSlider.create(sliderPrice, {
+  range: {
+    min: typePrice[houseType.value],
+    max: MAX_PRICE,
+  },
+  start: 5000,
+  step: 100,
+});
+
+sliderPrice.noUiSlider.on('slide', () => {
+  price.value = sliderPrice.noUiSlider.get();
+  pristine.validate(price);
+});
+
+price.addEventListener('change', () => {
+  sliderPrice.noUiSlider.set(price.value);
+  price.value.toFix(2);
 });
 
