@@ -1,13 +1,7 @@
-import {ads} from './data.js';
-import {createOffer} from './offer.js';
+import './data.js';
+import './offer.js';
 import './util.js';
-import {getDisableForm, getActiveForm} from './form.js';
+import './map.js';
+import './form.js';
+import './map.js';
 import './validation.js';
-
-getDisableForm ();
-getActiveForm ();
-const fragment = document.createDocumentFragment();
-
-ads.forEach((offer) => fragment.append(createOffer(offer)));
-document.querySelector('#map-canvas').append(fragment);
-
