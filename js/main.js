@@ -4,4 +4,9 @@ import './util.js';
 import './map.js';
 import './form.js';
 import './map.js';
-import './validation.js';
+import {setUserFromSubmit} from './validation.js';
+import {openSuccessSendMessage, openErrorSendMessage} from './popup.js';
+import './api.js';
+import './form-swicher.js';
+
+setUserFromSubmit(openSuccessSendMessage, openErrorSendMessage);
