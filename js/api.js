@@ -34,7 +34,7 @@ const getData = (onSuccess, count, onError) => () => fetch(
   {
     method: 'GET',
     credentials: 'same-origin',
-  },
+  }
 )
   .then((response) => {
     if (response.ok) {

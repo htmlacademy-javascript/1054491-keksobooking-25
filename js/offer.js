@@ -1,6 +1,7 @@
 const OFFERCARDTEMPLATE = document.querySelector('#card').content;
 const TEMPLATE = OFFERCARDTEMPLATE.querySelector('.popup');
 const PHOTO_TEMPLATE = OFFERCARDTEMPLATE.querySelector('.popup__photo');
+
 const hideAdd = (element) => {
   element.classList.add('hidden');
 };
@@ -56,7 +57,7 @@ const createOffer = ({offer, author}) => {
 
   if (offer.features) {
     element.querySelectorAll('.popup__feature').forEach((featureItems) => {
-      const isNecessary = Array.from(offer.features.split(', ')).some(
+      const isNecessary = offer.features.some(
         (feature) => featureItems.classList.contains(`popup__feature--${feature}`)
       );
       if (!isNecessary) {
@@ -75,7 +76,7 @@ const createOffer = ({offer, author}) => {
 
   if(offer.photos) {
     element.querySelector('.popup__photos').innerHTML = '';
-    Array.from(offer.photos.split(', ')).forEach( (photo) => {
+    offer.photos.forEach( (photo) => {
       const item = PHOTO_TEMPLATE.cloneNode(true);
       item.src = photo;
       element.querySelector('.popup__photos').append(item);
