@@ -1,3 +1,6 @@
+import {sendData} from './api.js';
+import {blockSubmitButton, unblockSubmitButton} from './form.js';
+
 const form = document.querySelector('.ad-form');
 const price = document.querySelector('#price');
 const rooms = document.querySelector('#room_number');
@@ -71,6 +74,28 @@ sliderPrice.noUiSlider.on('slide', () => {
 
 price.addEventListener('change', () => {
   sliderPrice.noUiSlider.set(price.value);
-  price.value.toFix(2);
+  //Number(price.value).toFix(2);
 });
 
+const setUserFromSubmit = (onSuccess, onFail) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if(isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unblockSubmitButton();
+        },
+        () => {
+          onFail();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target)
+      );
+    }
+  });
+};
+
+export {setUserFromSubmit};
