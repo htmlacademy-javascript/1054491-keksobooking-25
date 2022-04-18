@@ -1,13 +1,14 @@
 import {resetMainPin} from './map.js';
 
 const AD_FORM = document.querySelector('.ad-form');
-const photosContainer = document.querySelector('.ad-form__photo-container');
+const photosContainer = document.querySelector('.ad-form__photo');
 const preview = document.querySelector('.ad-form-header__preview');
 const avatarImg = preview.querySelector('img');
 const avatar = document.querySelector('#avatar');
 const photos = document.querySelector('#images');
 const resetBtn = document.querySelector('.ad-form__reset');
 const submitBtn = document.querySelector('.ad-form__submit');
+
 
 const createImage = (files) => {
   const reader = new FileReader();
@@ -17,6 +18,8 @@ const createImage = (files) => {
   div.classList.add('photo');
   reader.addEventListener('load', () => {
     photo.src = reader.result;
+    photo.style.width = '70px';
+    photo.style.height = '70px';
     div.append(photo);
     photosContainer.append(div);
   });

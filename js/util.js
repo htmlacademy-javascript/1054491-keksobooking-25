@@ -31,5 +31,15 @@ function getRandomArrayString(elements) {
   return mixElements(elements).slice(0, getRandomNumber(1, elements.length - 1)).join(', ');
 }
 
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
+const TIMEOUT_DELAY = 500;
 
-export {getRandomNumber, getRandomCoordinat, getRandomArrayString};
+function debounce (callback) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), TIMEOUT_DELAY);
+  };
+}
+
+export {getRandomNumber, getRandomCoordinat, getRandomArrayString, debounce};

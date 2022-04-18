@@ -18,4 +18,14 @@ const getDisableForm = (isDisabled) => {
   });
 };
 
-export {getDisableForm};
+const disableMapFilters = (isDisabled) => {
+  mapFilter.classList.toggle('map__filters--disabled', isDisabled);
+  mapFilterSelects.forEach((item) => {
+    item.disabled = isDisabled;
+  });
+  mapFilterFieldsets.forEach((item) => {
+    item.disabled = isDisabled;
+  });
+};
+
+export {getDisableForm, disableMapFilters};

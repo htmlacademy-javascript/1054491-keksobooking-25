@@ -1,10 +1,14 @@
 import {createOffer} from './offer.js';
-import {getData} from './api.js';
-import {getDisableForm} from './form-swicher.js';
+import {getAds, showError} from './api.js';
+import {getDisableForm, disableMapFilters} from './form-swicher.js';
+import {checkAllFilters} from './filter.js';
+import {debounce} from './util.js';
 
 const address = document.querySelector('#address');
+const filterForm = document.querySelector('.map__filters');
 
 const COUNT_ADS = 10;
+const allAds = [];
 
 const START_MAP_SCALING = 12;
 
@@ -47,7 +51,7 @@ L.tileLayer(
   },
 ).addTo(map);
 
-// Добавление главной метки на карту
+// Добавление нашей метки на карту
 
 const mainPinMarker = L.marker(
   MAIN_LOCATION,
@@ -78,15 +82,33 @@ const createMarker = (ad) => {
   marker.addTo(markerGroup).bindPopup(createOffer(ad));
 };
 
-const showError = 'Не удалось получить данные с сервера';
-
-const getAds = getData(createMarker, COUNT_ADS, showError);
-getAds();
-
 const resetMainPin = () => {
   mainPinMarker.setLatLng(MAIN_LOCATION);
   map.setView(MAIN_LOCATION, START_MAP_SCALING);
   map.closePopup();
 };
 
-export {resetMainPin, getLocationToString, MAIN_LOCATION};
+(async () => {
+  const fetchedAds = await getAds(() => showError('Не удалось загрузить данные'));
+  allAds.push(...fetchedAds);
+  allAds.slice(0, COUNT_ADS).forEach((ad) => {
+    createMarker(ad);
+    disableMapFilters(false);
+  });
+})();
+
+
+const filterAd = () => {
+  markerGroup.clearLayers();
+  const filteredAds = allAds.filter((ad) => checkAllFilters(ad));
+  filteredAds.slice(0, COUNT_ADS).forEach((ad) => {
+    createMarker(ad);
+  });
+
+  if (filteredAds.length <= 0) {
+    showError('Не удалось загрузить данные');
+  }
+};
+
+filterForm.addEventListener('change', debounce(filterAd, 500));
+export {resetMainPin, getLocationToString, MAIN_LOCATION, markerGroup};
