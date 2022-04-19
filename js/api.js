@@ -1,6 +1,10 @@
 import {resetForm} from './form.js';
+const ServerUrl = {
+  GET_URL: 'https://25.javascript.pages.academy/keksobooking/data',
+  POST_URL: 'https://25.javascript.pages.academy/keksobooking',
+};
 
-const ERROR_TIME = 5000;
+const ERROR_TIME = 2000;
 
 //Выводим сообщение об ошибке
 
@@ -29,27 +33,25 @@ const showError = (message) => {
   ERROR_TIME);
 };
 
-const getData = (onSuccess, count, onError) => () => fetch(
-  'https://25.javascript.pages.academy/keksobooking/data',
-  {
-    method: 'GET',
-    credentials: 'same-origin',
+const getAds = async (onError) => {
+  let response;
+  try {
+    response = await fetch(
+      ServerUrl.GET_URL,
+      {
+        method: 'GET',
+        credentials: 'same-origin',
+      },
+    );
   }
-)
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-  })
-  .then((data) => {
-    data.slice(0, count).forEach((ad) => {
-      onSuccess(ad);
-    });
-  })
-  .catch(() => {
-    showError(onError);
-  });
+  catch (err) {
+    onError();
+    return [];
+  }
 
+  const allAds = await response.json();
+  return allAds;
+};
 const sendData = (onSuccess, onError, body) => {
   fetch (
     'https://25.javascript.pages.academy/keksobooking',
@@ -69,4 +71,4 @@ const sendData = (onSuccess, onError, body) => {
   });
 };
 
-export {getData, sendData, showError};
+export {getAds, sendData, showError};
