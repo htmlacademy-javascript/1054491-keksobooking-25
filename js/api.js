@@ -54,7 +54,7 @@ const getAds = async (onError) => {
 };
 const sendData = (onSuccess, onError, body) => {
   fetch (
-    'https://25.javascript.pages.academy/keksobooking',
+    ServerUrl.POST_URL,
     {
       method: 'POST',
       body,

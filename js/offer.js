@@ -6,8 +6,9 @@ const hideAdd = (element) => {
   element.classList.add('hidden');
 };
 const addValue = (element, value) => {
-  element.innerHTML = value;
+  element.textContent = value;
 };
+
 
 const TYPE = {
   flat: 'Квартира',

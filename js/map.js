@@ -36,8 +36,6 @@ const getLocationToString = (obj, number) => {
   return `${lat}, ${lng}`;
 };
 
-getDisableForm();
-
 const map = L.map('map-canvas')
   .on('load', () => {
     getDisableForm(false);
@@ -63,7 +61,7 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 address.value = getLocationToString(mainPinMarker.getLatLng(), 5);
 
-mainPinMarker.on('moveend', (evt) => {
+mainPinMarker.on('drag', (evt) => {
   address.value = getLocationToString(evt.target.getLatLng(), 5);
 });
 
@@ -110,5 +108,6 @@ const filterAd = () => {
   }
 };
 
-filterForm.addEventListener('change', debounce(filterAd, 500));
-export {resetMainPin, getLocationToString, MAIN_LOCATION, markerGroup};
+filterForm.addEventListener('change', debounce(filterAd));
+
+export {resetMainPin, getLocationToString, MAIN_LOCATION, filterAd};
