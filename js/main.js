@@ -1,4 +1,3 @@
-import './data.js';
 import './offer.js';
 import './util.js';
 import './map.js';

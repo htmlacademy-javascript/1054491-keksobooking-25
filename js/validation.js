@@ -10,6 +10,8 @@ const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const sliderPrice = document.querySelector('.ad-form__slider');
 const MAX_PRICE = 100000;
+const SLIDER_START = 5000;
+const SLIDER_STEP = 100;
 
 
 const typePrice = {
@@ -63,9 +65,13 @@ noUiSlider.create(sliderPrice, {
     min: typePrice[houseType.value],
     max: MAX_PRICE,
   },
-  start: 5000,
-  step: 100,
+  start: SLIDER_START,
+  step: SLIDER_STEP,
 });
+
+const resetSlider = () => {
+  sliderPrice.noUiSlider.reset();
+};
 
 sliderPrice.noUiSlider.on('slide', () => {
   price.value = sliderPrice.noUiSlider.get();
@@ -98,4 +104,4 @@ const setUserFromSubmit = (onSuccess, onFail) => {
   });
 };
 
-export {setUserFromSubmit};
+export {setUserFromSubmit, sliderPrice, guests, resetSlider, pristine};

@@ -34,6 +34,25 @@ const showError = (message) => {
 };
 
 const getAds = async (onError) => {
+  const response = await fetch(
+    ServerUrl.GET_URL,
+    {
+      method: 'GET',
+      credentials: 'same-origin',
+    },
+  );
+  if (response.ok) {
+    const allAds = await response.json();
+    return allAds;
+  } else {
+    onError();
+    return [];
+  }
+};
+
+
+/*
+const getAds = async (onError) => {
   let response;
   try {
     response = await fetch(
@@ -51,10 +70,12 @@ const getAds = async (onError) => {
 
   const allAds = await response.json();
   return allAds;
-};
+}; */
+
+
 const sendData = (onSuccess, onError, body) => {
   fetch (
-    'https://25.javascript.pages.academy/keksobooking',
+    ServerUrl.POST_URL,
     {
       method: 'POST',
       body,

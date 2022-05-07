@@ -1,4 +1,6 @@
 import {resetMainPin} from './map.js';
+import {resetSlider, pristine} from './validation.js';
+import {getLocationToString, filterAd} from './map.js';
 
 const AD_FORM = document.querySelector('.ad-form');
 const photosContainer = document.querySelector('.ad-form__photo');
@@ -8,6 +10,15 @@ const avatar = document.querySelector('#avatar');
 const photos = document.querySelector('#images');
 const resetBtn = document.querySelector('.ad-form__reset');
 const submitBtn = document.querySelector('.ad-form__submit');
+const mainPinLocation = document.querySelector('#address');
+const filterForm = document.querySelector('.map__filters');
+
+const MAIN_LOCATION = {
+  lat: 35.675178,
+  lng: 139.748876,
+};
+
+const NUMBER_AFTER_POINT = 5;
 
 
 const createImage = (files) => {
@@ -47,19 +58,25 @@ const handleFileSelect = (evt) => {
 
 const handleMultiFileSelect = (evt) => {
   const files = evt.target.files;
-  for (let i=0; i <= files.length; i++) {
-    createImage(files[i]);
-  }
+  Array.from(files).forEach((file) => {
+    createImage(file);
+  });
 };
 
-const resetForm = () => {
+const resetForm = (evt) => {
+  evt.preventDefault();
   AD_FORM.reset();
+  pristine.reset();
+  filterForm.reset();
+  filterAd();
   avatar.files.value = 'img/muffin-grey.svg';
   avatarImg.src = 'img/muffin-grey.svg';
   photos.files.value='';
   const userPhotos = document.querySelectorAll('.photo');
   userPhotos.forEach((element) => element.remove());
+  mainPinLocation.value = getLocationToString(MAIN_LOCATION, NUMBER_AFTER_POINT);
   resetMainPin();
+  resetSlider();
 };
 
 const blockSubmitButton = () => {
@@ -78,4 +95,4 @@ resetBtn.addEventListener('click', resetForm);
 avatar.addEventListener('change', handleFileSelect, false);
 photos.addEventListener('change', handleMultiFileSelect, false);
 
-export {resetForm, blockSubmitButton, unblockSubmitButton};
+export {resetForm, blockSubmitButton, unblockSubmitButton, resetBtn};
