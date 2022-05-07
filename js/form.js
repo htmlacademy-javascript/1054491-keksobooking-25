@@ -63,7 +63,8 @@ const handleMultiFileSelect = (evt) => {
   });
 };
 
-const resetForm = () => {
+const resetForm = (evt) => {
+  evt.preventDefault();
   AD_FORM.reset();
   pristine.reset();
   filterForm.reset();
@@ -73,13 +74,7 @@ const resetForm = () => {
   photos.files.value='';
   const userPhotos = document.querySelectorAll('.photo');
   userPhotos.forEach((element) => element.remove());
-  /* eslint-disable*/
-  console.log(getLocationToString(MAIN_LOCATION, NUMBER_AFTER_POINT));
-  /* eslint-enable*/
   mainPinLocation.value = getLocationToString(MAIN_LOCATION, NUMBER_AFTER_POINT);
-  /* eslint-disable*/
-  console.log(mainPinLocation.value);
-  /* eslint-enable*/
   resetMainPin();
   resetSlider();
 };

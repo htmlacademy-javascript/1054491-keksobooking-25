@@ -102,10 +102,6 @@ const filterAd = () => {
   filteredAds.slice(0, COUNT_ADS).forEach((ad) => {
     createMarker(ad);
   });
-
-  if (filteredAds.length <= 0) {
-    showError('Не удалось загрузить данные');
-  }
 };
 
 filterForm.addEventListener('change', debounce(filterAd));
